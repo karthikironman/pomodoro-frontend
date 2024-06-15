@@ -13,6 +13,7 @@ This repository holds the React.js code for the Karthik Pomodoro Project.
 
 ## Login Information
 
-The login information is stored in `sessionStorage`. This means that the user needs to log in every time they visit the app or reload the page.
+The login information is stored in `sessionStorage`. This means that the user needs to log in every time they visit the app.
+
 - **sessionStorage**: A web storage object that stores data for the duration of the page session.
 - **Implication**: The login state is not persistent across browser sessions or tab closures, ensuring a new login is required for each visit.
