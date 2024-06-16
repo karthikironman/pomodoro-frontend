@@ -4,6 +4,9 @@ import DatePicker from "react-date-picker";
 
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
+import AxiosHelper from "../helpers/axiosHelper";
+
+const API = new AxiosHelper();
 
 const Home = () => {
   const username = sessionStorage.getItem("username");
