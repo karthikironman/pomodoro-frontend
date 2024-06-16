@@ -28,20 +28,19 @@ const Home = () => {
   };
 
   const fetchData = async (ts) => {
-   if(ts !== null){
-    try {
-      console.log("fetch data for the ts ", ts);
-      let result = await API.get(`/pomo/get_today?timestamp=${ts}`);
+    if (ts !== null) {
+      try {
+        console.log("fetch data for the ts ", ts);
+        let result = await API.get(`/pomo/get_today?timestamp=${ts}`);
 
-      console.log(result);
-      if (result.data.data[0]?.selected)
-        setSelected(result.data.data[0].selected);
-      else setSelected([]);
-    } catch (err) {
-      alert(JSON.stringify(err));
+        console.log(result);
+        if (result.data.data[0]?.selected)
+          setSelected(result.data.data[0].selected);
+        else setSelected([]);
+      } catch (err) {
+        alert(JSON.stringify(err));
+      }
     }
-   }
-    
   };
 
   useEffect(() => {
@@ -66,15 +65,18 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h2>Home Page</h2>
-      <button
-        onClick={() => {
-          sessionStorage.clear();
-          window.location.reload();
-        }}
-      >
-        LOGOUT
-      </button>
+      <div className="head-row">
+        <h2>Home Page</h2>
+        <button
+          onClick={() => {
+            sessionStorage.clear();
+            window.location.reload();
+          }}
+        >
+          LOGOUT
+        </button>
+      </div>
+
       <div className="date-row">
         <DatePicker
           clearIcon={null}

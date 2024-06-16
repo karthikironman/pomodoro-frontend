@@ -7,7 +7,17 @@
     background-color: #f7f7f7;
     font-family: Arial, sans-serif;
     text-align: center;
-  
+    .question-box{
+      border:1px solid black;
+      padding:2rem;
+      p{ 
+        margin:0;
+        margin-bottom: 1rem;
+      }
+    }
+    .message{
+      color:blue;
+    }
     h1 {
       margin-bottom: 20px;
       color: #333;
@@ -41,6 +51,7 @@
       &:hover {
         background-color: #0056b3;
       }
+     
     }
   }
   

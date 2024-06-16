@@ -1,6 +1,20 @@
 .home-container{
+    padding:1rem;
+    .head-row{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        h2{
+            margin:0;
+        }
+        button{
+            height:2rem;
+        }
+    }
     .date-row{
         display:flex;
+        margin-bottom: 1rem;
         button{
             margin-left: 1rem;
         }

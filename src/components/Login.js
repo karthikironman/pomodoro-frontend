@@ -33,6 +33,12 @@ const Login = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+     handleLogin();
+    }
+  }
+
   const handleLogin = async () => {
     try {
       let result = await API.post("/login/question", {
@@ -60,21 +66,21 @@ const Login = () => {
   return (
     <div className="login-container">
       <h3>Welcome to Karthik Pomodoro Application</h3>
-      {message && <p>{message}</p>}
+      {message && <p className="message">{message}</p>}
       {!loading && (
-        <>
-          <div>
+      
+          <div className="question-box">
             <p>{question}</p>
             <input
               type="text"
               placeholder="Your answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-              
+              onKeyPress={handleKeyPress} 
             />
             <button onClick={handleLogin}>Submit</button>
           </div>
-        </>
+    
       )}
     </div>
   );
