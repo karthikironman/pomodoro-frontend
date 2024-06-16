@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import "./Home.scss";
-import DatePicker from 'react-date-picker';
+import DatePicker from "react-date-picker";
 
-import 'react-date-picker/dist/DatePicker.css';
-import 'react-calendar/dist/Calendar.css';
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const username = sessionStorage.getItem('username');
-  const [dateHolder, setDateHolder] = useState(0)
+  const username = sessionStorage.getItem("username");
+  const [dateHolder, setDateHolder] = useState(0);
 
   const getToday1sTS = () => {
     //the timestamp of 1st second of the day is the id
@@ -19,24 +17,22 @@ const Home = () => {
     let day = currTime.getDate();
     let month = currTime.getMonth();
     let year = currTime.getFullYear();
-    let Today1sTS = new Date(year,month,day).getTime();
-    console.log({Today1sTS, day, month, year})
+    let Today1sTS = new Date(year, month, day).getTime();
+    console.log({ Today1sTS, day, month, year });
     return Today1sTS;
-  }
-  const convObjToTS = (obj) => {
-    return obj.getTime();
-  }
-
-  const convTSToObj = (TS) => {
-    return new Date(TS);
-  }
+  };
 
   useEffect(() => {
     setDateHolder(getToday1sTS());
-    if (!username) {
-      navigate('/');
-    }
-  }, [username, navigate]);
+  }, []);
+
+  const convObjToTS = (obj) => {
+    return obj ? obj.getTime() : obj;
+  };
+
+  const convTSToObj = (TS) => {
+    return new Date(TS);
+  };
 
   if (!username) {
     return null; // or a loading spinner, if you prefer
@@ -45,8 +41,26 @@ const Home = () => {
   return (
     <div className="home-container">
       <h2>Home Page</h2>
-      <DatePicker onChange={(obj) => setDateHolder(convObjToTS(obj))} value={convTSToObj(dateHolder)}/>
-      <p>Welcome, {dateHolder}!</p>
+      <button
+        onClick={() => {
+          sessionStorage.clear();
+          window.location.reload();
+        }}
+      >
+        LOGOUT
+      </button>
+      <div className="date-row">
+        <DatePicker
+          clearIcon={null}
+          calendarIcon={null}
+          onChange={(obj) => setDateHolder(convObjToTS(obj))}
+          value={convTSToObj(dateHolder)}
+        />
+        {getToday1sTS() != dateHolder && (
+          <button onClick={() => setDateHolder(getToday1sTS())}>Today</button>
+        )}
+      </div>
+
     </div>
   );
 };
