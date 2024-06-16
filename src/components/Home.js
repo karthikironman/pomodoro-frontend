@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import DatePicker from "react-date-picker";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -33,7 +34,6 @@ const Home = () => {
         console.log("fetch data for the ts ", ts);
         let result = await API.get(`/pomo/get_today?timestamp=${ts}`);
 
-        console.log(result);
         if (result.data.data[0]?.selected)
           setSelected(result.data.data[0].selected);
         else setSelected([]);
@@ -120,6 +120,10 @@ const Home = () => {
           callback={fetchData}
           timestamp={dateHolder}
         />
+      </div>
+      <div className="percentage-completed">
+        {/* <p>{selected.length * 100 / 32} % </p> */}
+        <ProgressBar completed={(selected.length * 100) / 32} />
       </div>
     </div>
   );
