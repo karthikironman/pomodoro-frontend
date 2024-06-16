@@ -5,12 +5,14 @@ import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import AxiosHelper from "../helpers/axiosHelper";
+import PomoUnit from "./pomoUnit";
 
 const API = new AxiosHelper();
 
 const Home = () => {
   const username = sessionStorage.getItem("username");
-  const [dateHolder, setDateHolder] = useState(0);
+  const [dateHolder, setDateHolder] = useState(null);
+  const [selected, setSelected] = useState([]);
 
   const getToday1sTS = () => {
     //the timestamp of 1st second of the day is the id
@@ -25,9 +27,30 @@ const Home = () => {
     return Today1sTS;
   };
 
+  const fetchData = async (ts) => {
+   if(ts !== null){
+    try {
+      console.log("fetch data for the ts ", ts);
+      let result = await API.get(`/pomo/get_today?timestamp=${ts}`);
+
+      console.log(result);
+      if (result.data.data[0]?.selected)
+        setSelected(result.data.data[0].selected);
+      else setSelected([]);
+    } catch (err) {
+      alert(JSON.stringify(err));
+    }
+   }
+    
+  };
+
   useEffect(() => {
     setDateHolder(getToday1sTS());
   }, []);
+
+  useEffect(() => {
+    fetchData(dateHolder);
+  }, [dateHolder]);
 
   const convObjToTS = (obj) => {
     return obj ? obj.getTime() : obj;
@@ -56,14 +79,46 @@ const Home = () => {
         <DatePicker
           clearIcon={null}
           calendarIcon={null}
-          onChange={(obj) => setDateHolder(convObjToTS(obj))}
+          onChange={(obj) => {
+            setDateHolder(convObjToTS(obj));
+            fetchData(convObjToTS(obj));
+          }}
           value={convTSToObj(dateHolder)}
         />
         {getToday1sTS() != dateHolder && (
           <button onClick={() => setDateHolder(getToday1sTS())}>Today</button>
         )}
       </div>
-
+      <div className="pomo-row">
+        <PomoUnit
+          key={0}
+          pomoIndex={0}
+          value={selected}
+          callback={fetchData}
+          timestamp={dateHolder}
+        />
+        <PomoUnit
+          key={1}
+          pomoIndex={1}
+          value={selected}
+          callback={fetchData}
+          timestamp={dateHolder}
+        />
+        <PomoUnit
+          key={2}
+          pomoIndex={2}
+          value={selected}
+          callback={fetchData}
+          timestamp={dateHolder}
+        />
+        <PomoUnit
+          key={3}
+          pomoIndex={3}
+          value={selected}
+          callback={fetchData}
+          timestamp={dateHolder}
+        />
+      </div>
     </div>
   );
 };

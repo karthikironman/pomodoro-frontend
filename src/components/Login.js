@@ -70,6 +70,7 @@ const Login = () => {
               placeholder="Your answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
+              
             />
             <button onClick={handleLogin}>Submit</button>
           </div>
