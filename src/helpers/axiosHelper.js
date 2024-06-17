@@ -1,6 +1,6 @@
 import AXIOS from 'axios';
 const BASE_HEADERS = "";
-let BACKEND_SERVER_PREFIX = "http://localhost:8081"
+let BACKEND_SERVER_PREFIX = "http://10.243.22.169:8081"
 
 class AxiosHelper {
     get(url) {
