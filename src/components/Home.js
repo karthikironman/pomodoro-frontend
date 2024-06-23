@@ -59,9 +59,9 @@ const Home = () => {
     return new Date(TS);
   };
 
-  if (!username) {
-    return null; // or a loading spinner, if you prefer
-  }
+  // if (!username) {
+  //   return null; // or a loading spinner, if you prefer
+  // }
 
   return (
     <div className="home-container">
